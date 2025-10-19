@@ -58,3 +58,17 @@ int BrickManager::checkCollision(sf::CircleShape& ball, sf::Vector2f& direction)
     }
     return collisionResponse;
 }
+
+int BrickManager::getBricksLeft()
+{
+    return _bricks.size();
+}
+
+void BrickManager::removeBricksRandom(int count)
+{
+    for (int b = 0; b < count; b++) {
+        int toRemoveIndex = rand() % _bricks.size();
+
+        _bricks.erase(_bricks.begin() + toRemoveIndex);
+    }
+}

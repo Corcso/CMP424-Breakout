@@ -11,7 +11,17 @@ public:
     void createBricks(int rows, int cols, float brickWidth, float brickHeight, float spacing);
     void render();
     int checkCollision(sf::CircleShape& ball, sf::Vector2f& direction);
-
+    /// <summary>
+    /// Returns the number of active bricks on the board.
+    /// </summary>
+    /// <returns>Nuber of bricks</returns>
+    int getBricksLeft();
+    
+    /// <summary>
+    /// Removes the provided number of bricks
+    /// </summary>
+    /// <param name="count">Number to remove, default 1</param>
+    void removeBricksRandom(int count = 1);
 private:
     std::vector<Brick> _bricks;
     sf::RenderWindow* _window;

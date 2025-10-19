@@ -60,6 +60,11 @@ void UI::updatePowerupText(std::pair<POWERUPS, float> powerup)
 		_powerupText.setString("fire " + oss.str());
 		_powerupText.setFillColor(extraBallEffectsColour);
 		break;
+	case thanosSnap:
+		oss << std::fixed << std::setprecision(2) << powerup.second;
+		_powerupText.setString("Thanos Snap!");
+		_powerupText.setFillColor(thanosSnapEffectsColour);
+		break;
 	case none:
 		_powerupText.setString("");
 		
