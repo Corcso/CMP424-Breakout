@@ -22,9 +22,15 @@ public:
     /// </summary>
     /// <param name="count">Number to remove, default 1</param>
     void removeBricksRandom(int count = 1);
+
+    /// <summary>
+    /// Twixifies all bricks, see Brick::twixify()
+    /// </summary>
+    void twixifyAllBricks();
 private:
     std::vector<Brick> _bricks;
     sf::RenderWindow* _window;
+    std::shared_ptr<sf::Texture> _twixTexture; // Hold here for all bricks
 
     GameManager* _gameManager;
     static constexpr float TOP_PADDING = 100.0f;

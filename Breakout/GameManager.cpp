@@ -6,7 +6,7 @@
 GameManager::GameManager(sf::RenderWindow* window)
     : _window(window), _paddle(nullptr), _ball(nullptr), _brickManager(nullptr), _powerupManager(nullptr),
     _messagingSystem(nullptr), _ui(nullptr), _pause(false), _time(0.f), _lives(3), _pauseHold(0.f), _levelComplete(false),
-    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f)
+    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _twixifyRanThisRound(false)
 {
     _font.loadFromFile("font/montS.ttf");
     _masterText.setFont(_font);
@@ -85,6 +85,12 @@ void GameManager::update(float dt)
     _paddle->update(dt);
     _ball->update(dt);
     _powerupManager->update(dt);
+
+    // If ball has done 5+ consecutive breaks, twixifify the board
+    if (!_twixifyRanThisRound && _ball->getConsecutiveBrickHits() >= 5) {
+        _brickManager->twixifyAllBricks();
+        _twixifyRanThisRound = true;
+    }
 }
 
 void GameManager::loseLife()
