@@ -6,7 +6,7 @@
 GameManager::GameManager(sf::RenderWindow* window)
     : _window(window), _paddle(nullptr), _ball(nullptr), _brickManager(nullptr), _powerupManager(nullptr),
     _messagingSystem(nullptr), _ui(nullptr), _pause(false), _time(0.f), _lives(3), _pauseHold(0.f), _levelComplete(false),
-    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _twixifyRanThisRound(false)
+    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _timeLastPowerupRollDone(0.f), _twixifyRanThisRound(false)
 {
     _font.loadFromFile("font/montS.ttf");
     _masterText.setFont(_font);
@@ -71,10 +71,13 @@ void GameManager::update(float dt)
     _time += dt;
 
 
-    if (_time > _timeLastPowerupSpawned + POWERUP_FREQUENCY && rand() % POWERUP_CHANCE_PER_FRAME == 0)  
+    if (_time > _timeLastPowerupSpawned + POWERUP_FREQUENCY && _time > _timeLastPowerupRollDone + POWERUP_ROLL_FREQUENCY)
     {
-        _powerupManager->spawnPowerup();
-        _timeLastPowerupSpawned = _time;
+        if (rand() % POWERUP_CHANCE_PER_ROLL == 0) {
+            _powerupManager->spawnPowerup();
+            _timeLastPowerupSpawned = _time;
+        }
+        _timeLastPowerupRollDone = _time;
     }
 
     // move paddle

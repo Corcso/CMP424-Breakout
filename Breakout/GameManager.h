@@ -32,6 +32,7 @@ private:
     float _pauseHold;
     float _time;
     float _timeLastPowerupSpawned;
+    float _timeLastPowerupRollDone;
     int _lives;
     bool _levelComplete;
     bool _twixifyRanThisRound;
@@ -50,5 +51,6 @@ private:
 
     static constexpr float PAUSE_TIME_BUFFER = 0.5f;
     static constexpr float POWERUP_FREQUENCY = 7.5f;    // time between minimum powerup spawn
-    static constexpr int POWERUP_CHANCE_PER_FRAME = 700;    // after powerup time passed, 1 in X chance of a powerup spawning this frame
+    static constexpr float POWERUP_ROLL_FREQUENCY = 0.1f;    // now the minimum time has passed per powerup, how often do we roll for one
+    static constexpr int POWERUP_CHANCE_PER_ROLL = 10;    // when rolling, 1 in X chance of a powerup spawning this time
 };
