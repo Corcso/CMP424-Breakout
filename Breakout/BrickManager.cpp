@@ -103,7 +103,7 @@ void BrickManager::createPartyBricks(int rows, int cols, float brickWidth, float
     }
     
     for (auto& brick : _bricks) {
-        _gameManager->getTweenManager()->addTween(0, 1000, 0.001f, TweenManager::EasingFunction::LINEAR_IN_OUT,
+        _gameManager->getTweenManager()->addTween((rand() % 100) / 100.0f, 1000, 0.001f, TweenManager::EasingFunction::LINEAR_IN_OUT,
             [&](float value) {
                 value = value - floor(value);
                 float r = (value < 0.33f) ? (0.33f - value) * 3.0f : (value < 0.66f) ? 0.0f : (value - 0.66f) * 3.0f;
