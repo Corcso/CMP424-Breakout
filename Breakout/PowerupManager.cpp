@@ -1,8 +1,8 @@
 #include "PowerupManager.h"
 
 
-PowerupManager::PowerupManager(sf::RenderWindow* window, Paddle* paddle, Ball* ball)
-    : _window(window), _paddle(paddle), _ball(ball)
+PowerupManager::PowerupManager(sf::RenderWindow* window, Paddle* paddle, Ball* ball, GameManager* gameManager)
+    : _window(window), _paddle(paddle), _ball(ball), _gameManager(gameManager)
 {
 }
 

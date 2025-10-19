@@ -12,11 +12,12 @@
 #include "Paddle.h"
 #include "Ball.h"
 
+class GameManager;
 
 class PowerupManager
 {
 public:
-    PowerupManager(sf::RenderWindow* window, Paddle* paddle, Ball* ball);
+    PowerupManager(sf::RenderWindow* window, Paddle* paddle, Ball* ball, GameManager* gameManager);
     ~PowerupManager();
 
     void update(float dt);
@@ -28,6 +29,7 @@ public:
 
 private:
     sf::RenderWindow* _window;
+    GameManager* _gameManager;
     Paddle* _paddle;
     Ball* _ball;
     std::vector<PowerupBase*> _powerups;            // used to manage deletion.
