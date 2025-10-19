@@ -93,18 +93,46 @@ void Ball::update(float dt)
         // Set consecutive brick count to 0
         _consecutiveBrickHits = 0;
 
-        // Paddle jiggle
-        _gameManager->getTweenManager()->addTweenWithCallback(1, 1.5f, 10, TweenManager::EasingFunction::SINE_IN_OUT,
-            [&](float value) {
-                _gameManager->getPaddle()->setWidth(value, 1.0f);
-            },
-            [&]() {
-                _gameManager->getTweenManager()->addTween(1.5f, 1, 5, TweenManager::EasingFunction::BOUNCE_OUT,
-                    [&](float value) {
-                        _gameManager->getPaddle()->setWidth(value, 1.0f);
-                    });
-            });
-
+        // Paddle jiggle (switch case for big and small powerup could be better)
+        switch (_gameManager->getPowerupManager()->getPowerupInEffect().first) {
+        case bigPaddle:
+            _gameManager->getTweenManager()->addTweenWithCallback(1.5f, 2.0f, 10, TweenManager::EasingFunction::SINE_IN_OUT,
+                [&](float value) {
+                    _gameManager->getPaddle()->setWidth(value, 1.0f);
+                },
+                [&]() {
+                    _gameManager->getTweenManager()->addTween(2.0f, 1.5f, 5, TweenManager::EasingFunction::BOUNCE_OUT,
+                        [&](float value) {
+                            _gameManager->getPaddle()->setWidth(value, _gameManager->getPowerupManager()->getPowerupInEffect().second);
+                        });
+                });
+            break;
+        case smallPaddle:
+            _gameManager->getTweenManager()->addTweenWithCallback(0.67f, 1.33f, 10, TweenManager::EasingFunction::SINE_IN_OUT,
+                [&](float value) {
+                    _gameManager->getPaddle()->setWidth(value, 1.0f);
+                },
+                [&]() {
+                    _gameManager->getTweenManager()->addTween(1.33f, 0.67f, 5, TweenManager::EasingFunction::BOUNCE_OUT,
+                        [&](float value) {
+                            _gameManager->getPaddle()->setWidth(value, _gameManager->getPowerupManager()->getPowerupInEffect().second);
+                        });
+                });
+            break;
+        default:
+            _gameManager->getTweenManager()->addTweenWithCallback(1, 1.5f, 10, TweenManager::EasingFunction::SINE_IN_OUT,
+                [&](float value) {
+                    _gameManager->getPaddle()->setWidth(value, 1.0f);
+                },
+                [&]() {
+                    _gameManager->getTweenManager()->addTween(1.5f, 1, 5, TweenManager::EasingFunction::BOUNCE_OUT,
+                        [&](float value) {
+                            _gameManager->getPaddle()->setWidth(value, 1.0f);
+                        });
+                });
+            break;
+        }
+        
         // Audio
         _paddleHit_Sound.play();
     }
