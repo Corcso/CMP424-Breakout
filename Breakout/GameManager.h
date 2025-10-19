@@ -50,4 +50,5 @@ private:
 
     static constexpr float PAUSE_TIME_BUFFER = 0.5f;
     static constexpr float POWERUP_FREQUENCY = 7.5f;    // time between minimum powerup spawn
+    static constexpr int POWERUP_CHANCE_PER_FRAME = 700;    // after powerup time passed, 1 in X chance of a powerup spawning this frame
 };
