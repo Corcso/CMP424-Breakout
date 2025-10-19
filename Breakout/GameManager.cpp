@@ -6,7 +6,7 @@
 GameManager::GameManager(sf::RenderWindow* window)
     : _window(window), _paddle(nullptr), _ball(nullptr), _brickManager(nullptr), _powerupManager(nullptr),
     _messagingSystem(nullptr), _ui(nullptr), _pause(false), _time(0.f), _lives(3), _pauseHold(0.f), _levelComplete(false),
-    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _timeLastPowerupRollDone(0.f), _twixifyRanThisRound(false)
+    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _timeLastPowerupRollDone(0.f), _twixifyRanThisRound(false), _tweenManager(nullptr)
 {
     _font.loadFromFile("font/montS.ttf");
     _masterText.setFont(_font);
@@ -23,6 +23,7 @@ void GameManager::initialize()
     _ball = new Ball(_window, 400.0f, this); 
     _powerupManager = new PowerupManager(_window, _paddle, _ball, this);
     _ui = new UI(_window, _lives, this);
+    _tweenManager = new TweenManager();
 
     // Create bricks
     _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
@@ -88,6 +89,7 @@ void GameManager::update(float dt)
     _paddle->update(dt);
     _ball->update(dt);
     _powerupManager->update(dt);
+    _tweenManager->update(dt);
 
     // If ball has done 5+ consecutive breaks, twixifify the board
     if (!_twixifyRanThisRound && _ball->getConsecutiveBrickHits() >= 5) {
@@ -101,7 +103,14 @@ void GameManager::loseLife()
     _lives--;
     _ui->lifeLost(_lives);
 
-    // TODO screen shake.
+    _tweenManager->addTweenWithCallback(0, 1, 2.f, [&](float value) {
+        float interpolatedValue = sin(7 * value) * sin(45 * value);
+        sf::View toEdit = _window->getDefaultView();
+        toEdit.setRotation(interpolatedValue);
+        _window->setView(toEdit);
+        }, [&]() {
+            _window->setView(_window->getDefaultView());
+        });
 }
 
 void GameManager::render()

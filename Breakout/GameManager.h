@@ -6,6 +6,7 @@
 #include "BrickManager.h"
 #include "PowerupManager.h"
 #include "MessagingSystem.h"
+#include "TweenManager.h"
 #include "UI.h"
 
 
@@ -47,6 +48,7 @@ private:
     BrickManager* _brickManager;
     PowerupManager* _powerupManager;
     MessagingSystem* _messagingSystem;
+    TweenManager* _tweenManager;
     UI* _ui;
 
     static constexpr float PAUSE_TIME_BUFFER = 0.5f;
