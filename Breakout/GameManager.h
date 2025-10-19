@@ -25,6 +25,7 @@ public:
     BrickManager* getBrickManager() const;
     PowerupManager* getPowerupManager() const;
     sf::RenderWindow* getWindow() const;
+    TweenManager* getTweenManager() const;
     UI* getUI() const;
 
 

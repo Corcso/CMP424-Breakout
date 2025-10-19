@@ -103,7 +103,7 @@ void GameManager::loseLife()
     _lives--;
     _ui->lifeLost(_lives);
 
-    _tweenManager->addTweenWithCallback(0, 1, 2.f, [&](float value) {
+    _tweenManager->addTweenWithCallback(0, 1, 2.f, TweenManager::EasingFunction::LINEAR_IN_OUT, [&](float value) {
         float interpolatedValue = sin(7 * value) * sin(45 * value);
         sf::View toEdit = _window->getDefaultView();
         toEdit.setRotation(interpolatedValue);
@@ -129,6 +129,7 @@ void GameManager::levelComplete()
 }
 
 sf::RenderWindow* GameManager::getWindow() const { return _window; }
+TweenManager* GameManager::getTweenManager() const {return _tweenManager; }
 UI* GameManager::getUI() const { return _ui; }
 Paddle* GameManager::getPaddle() const { return _paddle; }
 BrickManager* GameManager::getBrickManager() const { return _brickManager; }

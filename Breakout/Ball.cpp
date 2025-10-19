@@ -81,20 +81,43 @@ void Ball::update(float dt)
 
         // Set consecutive brick count to 0
         _consecutiveBrickHits = 0;
+
+        // Paddle jiggle
+        _gameManager->getTweenManager()->addTweenWithCallback(1, 1.5f, 10, TweenManager::EasingFunction::SINE_IN_OUT,
+            [&](float value) {
+                _gameManager->getPaddle()->setWidth(value, 1.0f);
+            },
+            [&]() {
+                _gameManager->getTweenManager()->addTween(1.5f, 1, 5, TweenManager::EasingFunction::BOUNCE_OUT,
+                    [&](float value) {
+                        _gameManager->getPaddle()->setWidth(value, 1.0f);
+                    });
+            });
     }
 
     // collision with bricks
     int collisionResponse = _gameManager->getBrickManager()->checkCollision(_sprite, _direction);
     if (_isFireBall) return; // no collisisons when in fireBall mode.
+    if (collisionResponse != 0) {
+        ++_consecutiveBrickHits;
+        _gameManager->getTweenManager()->addTweenWithCallback(RADIUS, RADIUS * 1.5f, 10, TweenManager::EasingFunction::SINE_IN_OUT,
+            [&](float value) {
+                _sprite.setRadius(value);
+            },
+            [&]() {
+                _gameManager->getTweenManager()->addTween(RADIUS * 1.5f, RADIUS, 10, TweenManager::EasingFunction::SINE_IN_OUT,
+                    [&](float value) {
+                        _sprite.setRadius(value);
+                    });
+            });
+    }
     if (collisionResponse == 1)
     {
         _direction.x *= -1; // Bounce horizontally
-        ++_consecutiveBrickHits;
     }
     else if (collisionResponse == 2)
     {
         _direction.y *= -1; // Bounce vertically
-        ++_consecutiveBrickHits;
     }
 }
 
