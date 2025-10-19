@@ -9,6 +9,7 @@ class BrickManager {
 public:
     BrickManager(sf::RenderWindow* window, GameManager* gameManager);
     void createBricks(int rows, int cols, float brickWidth, float brickHeight, float spacing);
+    
     void render();
     int checkCollision(sf::CircleShape& ball, sf::Vector2f& direction);
     /// <summary>
@@ -27,6 +28,11 @@ public:
     /// Twixifies all bricks, see Brick::twixify()
     /// </summary>
     void twixifyAllBricks();
+
+    /// <summary>
+    /// Special Function to create party bricks for the win screen
+    /// </summary>
+    void createPartyBricks(int rows, int cols, float brickWidth, float brickHeight, float spacing);
 private:
     std::vector<Brick> _bricks;
     sf::RenderWindow* _window;

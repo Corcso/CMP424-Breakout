@@ -25,3 +25,8 @@ void Brick::twixify()
     _shape.setTexture(_twixTexture.get());
     _shape.setFillColor(sf::Color::White);
 }
+
+void Brick::setColor(sf::Color color)
+{
+    _shape.setFillColor(color);
+}

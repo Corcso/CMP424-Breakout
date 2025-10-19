@@ -81,3 +81,39 @@ void BrickManager::twixifyAllBricks()
         brick.twixify();
     }
 }
+
+void BrickManager::createPartyBricks(int rows, int cols, float brickWidth, float brickHeight, float spacing)
+{
+    float leftEdge;
+    if (cols % 2 == 0)
+        leftEdge = _window->getSize().x / 2 - ((cols / 2.0f) * brickWidth + (cols / 2.0f - 0.5f) * spacing);
+    else
+        leftEdge = _window->getSize().x / 2 - ((cols / 2.0f - 0.5f) * brickWidth + (cols / 2.0f) * spacing);
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            float x = j * (brickWidth + spacing) + leftEdge;
+            float y = i * (brickHeight + spacing) + TOP_PADDING;
+            _bricks.emplace_back(x, y, brickWidth, brickHeight, _twixTexture);
+        }
+    }
+
+    for (auto& brick : _bricks) {
+        brick.twixify();
+    }
+    
+    for (auto& brick : _bricks) {
+        _gameManager->getTweenManager()->addTween(0, 1000, 0.001f, TweenManager::EasingFunction::LINEAR_IN_OUT,
+            [&](float value) {
+                value = value - floor(value);
+                float r = (value < 0.33f) ? (0.33f - value) * 3.0f : (value < 0.66f) ? 0.0f : (value - 0.66f) * 3.0f;
+                float g = (value < 0.33f) ? (value - 0.0f) * 3.0f : (value < 0.66f) ? (0.66f - value) * 3.0f : 0.0f;
+                float b = (value < 0.33f) ? 0.0f : (value < 0.66f) ? (value - 0.33f) * 3.0f : (1.0f - value) * 3.0f;
+                r *= 255;
+                g *= 255;
+                b *= 255;
+                brick.setColor(sf::Color(r, g, b));
+            });
+    }
+    
+}

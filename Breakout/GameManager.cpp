@@ -31,6 +31,8 @@ void GameManager::initialize()
     // Load audio
     _death_sfx.loadFromFile("./Assets/death.wav");
     _death_Sound.setBuffer(_death_sfx);
+
+    _win_Music.openFromFile("./Assets/WhoLikestoParty.mp3");
 }
 
 void GameManager::update(float dt)
@@ -48,6 +50,7 @@ void GameManager::update(float dt)
     if (_levelComplete)
     {
         _masterText.setString("Level completed.");
+        _tweenManager->update(dt);
         return;
     }
     // pause and pause handling
@@ -70,6 +73,12 @@ void GameManager::update(float dt)
     if (_pause)
     {
         return;
+    }
+
+    // If I is pressed, instantly win for testing
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
+    {
+        _brickManager->removeBricksRandom(_brickManager->getBricksLeft());
     }
 
     // timer.
@@ -133,6 +142,8 @@ void GameManager::render()
 void GameManager::levelComplete()
 {
     _levelComplete = true;
+    _win_Music.play();
+    _brickManager->createPartyBricks(5, 10, 80.0f, 30.0f, 5.0f);
 }
 
 sf::RenderWindow* GameManager::getWindow() const { return _window; }

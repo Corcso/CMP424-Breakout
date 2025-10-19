@@ -56,6 +56,9 @@ private:
     sf::SoundBuffer _death_sfx;
     sf::Sound _death_Sound;
 
+    // Who Likes to Party (MacLeod, 2012) 
+    sf::Music _win_Music;
+
     static constexpr float PAUSE_TIME_BUFFER = 0.5f;
     static constexpr float POWERUP_FREQUENCY = 7.5f;    // time between minimum powerup spawn
     static constexpr float POWERUP_ROLL_FREQUENCY = 0.1f;    // now the minimum time has passed per powerup, how often do we roll for one
