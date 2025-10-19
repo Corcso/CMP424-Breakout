@@ -35,7 +35,11 @@ private:
 
     // Sound Effects
     sf::SoundBuffer _brickSmash_sfx;
+    sf::SoundBuffer _paddleHit_sfx;
+    sf::SoundBuffer _wallHit_sfx;
     sf::Sound _brickSmash_Sound;
+    sf::Sound _paddleHit_Sound;
+    sf::Sound _wallHit_Sound;
 
     static constexpr float RADIUS = 10.0f;      
     static constexpr float VELOCITY = 350.0f;   // for reference.

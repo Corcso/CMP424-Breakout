@@ -10,7 +10,11 @@ Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
     _sprite.setPosition(0, 300);
 
     _brickSmash_sfx.loadFromFile("./Assets/brickHit.wav");
+    _paddleHit_sfx.loadFromFile("./Assets/paddleHit.wav");
+    _wallHit_sfx.loadFromFile("./Assets/wallHit.wav");
     _brickSmash_Sound.setBuffer(_brickSmash_sfx);
+    _paddleHit_Sound.setBuffer(_paddleHit_sfx);
+    _wallHit_Sound.setBuffer(_wallHit_sfx);
 }
 
 Ball::~Ball()
@@ -54,12 +58,16 @@ void Ball::update(float dt)
     if ((position.x >= windowDimensions.x - 2 * RADIUS && _direction.x > 0) || (position.x <= 0 && _direction.x < 0))
     {
         _direction.x *= -1;
+
+        _wallHit_Sound.play();
     }
 
     // bounce on ceiling
     if (position.y <= 0 && _direction.y < 0)
     {
         _direction.y *= -1;
+
+        _wallHit_Sound.play();
     }
 
     // lose life bounce
@@ -96,6 +104,9 @@ void Ball::update(float dt)
                         _gameManager->getPaddle()->setWidth(value, 1.0f);
                     });
             });
+
+        // Audio
+        _paddleHit_Sound.play();
     }
 
     // collision with bricks

@@ -27,6 +27,10 @@ void GameManager::initialize()
 
     // Create bricks
     _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
+
+    // Load audio
+    _death_sfx.loadFromFile("./Assets/death.wav");
+    _death_Sound.setBuffer(_death_sfx);
 }
 
 void GameManager::update(float dt)
@@ -111,6 +115,9 @@ void GameManager::loseLife()
         }, [&]() {
             _window->setView(_window->getDefaultView());
         });
+
+    // Play audio
+    _death_Sound.play();
 }
 
 void GameManager::render()
