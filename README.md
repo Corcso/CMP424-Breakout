@@ -33,22 +33,22 @@ fire ball (green)
 
 # Time Details and Changelist
 
-### Removed unnessicary circular reference preventing compilation - 2 minutes  
+### Removed unnecessary circular reference preventing compilation - 2 minutes  
 Removed the circular reference which prevented the program compiling
 
 ### Codebase Familiarisation - 17 minutes  
 Familiarised myself with the codebase
 
 ### Thanos Snap Powerup - 26 minutes  
-Added a thanos snap powerup which removes half the bricks
+Added a Thanos snap powerup which removes half the bricks
 
 ### Memory leak removal - 3 minutes  
-Removed the unnessicary integer allocation in the fireball powerup
+Removed the unnecessary integer allocation in the fireball powerup
 
 ### Twixification - 18 minutes  
 Added a twixification feature which, after 5 consecutive brick hits, turns all the bricks into twixes
 
-### Paramaterised Powerup per frame chance - 3 minutes  
+### Parameterised Powerup per frame chance - 3 minutes  
 Completed the todo on the powerup chance parameter
 
 ### Allowed Fair Frame Independent powerup chance - 5 minutes  
