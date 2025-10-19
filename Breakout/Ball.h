@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 
 class GameManager;  // forward declaration
@@ -32,6 +33,9 @@ private:
 
     GameManager* _gameManager;  // Reference to the GameManager
 
+    // Sound Effects
+    sf::SoundBuffer _brickSmash_sfx;
+    sf::Sound _brickSmash_Sound;
 
     static constexpr float RADIUS = 10.0f;      
     static constexpr float VELOCITY = 350.0f;   // for reference.

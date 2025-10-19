@@ -8,6 +8,9 @@ Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
     _sprite.setRadius(RADIUS);
     _sprite.setFillColor(sf::Color::Cyan);
     _sprite.setPosition(0, 300);
+
+    _brickSmash_sfx.loadFromFile("./Assets/brickHit.wav");
+    _brickSmash_Sound.setBuffer(_brickSmash_sfx);
 }
 
 Ball::~Ball()
@@ -110,6 +113,10 @@ void Ball::update(float dt)
                         _sprite.setRadius(value);
                     });
             });
+
+        // Play sound with pitch increase
+        _brickSmash_Sound.setPitch(1 + 0.1f * _consecutiveBrickHits);
+        _brickSmash_Sound.play();
     }
     if (collisionResponse == 1)
     {
