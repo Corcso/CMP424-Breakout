@@ -59,9 +59,10 @@ sf::FloatRect Paddle::getBounds() const
 // ensure centre remains consistent.
 void Paddle::setWidth(float coeff, float duration)
 {
+    float previousWidth = _width;
     _width = coeff * PADDLE_WIDTH;
     _sprite.setSize(sf::Vector2f(_width, _sprite.getSize().y));
     _timeInNewSize = duration;
-    float newX = _sprite.getPosition().x + (_width - PADDLE_WIDTH) / 2.0f;
+    float newX = _sprite.getPosition().x + (previousWidth - _width) / 2.0f;
     _sprite.setPosition(newX, _sprite.getPosition().y);
 }
