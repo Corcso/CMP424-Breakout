@@ -3,7 +3,7 @@
 
 Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
     : _window(window), _velocity(velocity), _gameManager(gameManager),
-    _timeWithPowerupEffect(0.f), _isFireBall(false), _isAlive(true), _direction({1,1})
+    _timeWithPowerupEffect(0.f), _isFireBall(false), _isAlive(true), _direction({1,1}), _consecutiveBrickHits(0)
 {
     _sprite.setRadius(RADIUS);
     _sprite.setFillColor(sf::Color::Cyan);
@@ -65,6 +65,7 @@ void Ball::update(float dt)
         _sprite.setPosition(0, 300);
         _direction = { 1, 1 };
         _gameManager->loseLife();
+        _consecutiveBrickHits = 0;
     }
 
     // collision with paddle
@@ -77,6 +78,9 @@ void Ball::update(float dt)
 
         // Adjust position to avoid getting stuck inside the paddle
         _sprite.setPosition(_sprite.getPosition().x, _gameManager->getPaddle()->getBounds().top - 2 * RADIUS);
+
+        // Set consecutive brick count to 0
+        _consecutiveBrickHits = 0;
     }
 
     // collision with bricks
@@ -85,10 +89,12 @@ void Ball::update(float dt)
     if (collisionResponse == 1)
     {
         _direction.x *= -1; // Bounce horizontally
+        ++_consecutiveBrickHits;
     }
     else if (collisionResponse == 2)
     {
         _direction.y *= -1; // Bounce vertically
+        ++_consecutiveBrickHits;
     }
 }
 
@@ -113,4 +119,9 @@ void Ball::setFireBall(float duration)
     }
     _isFireBall = false;
     _timeWithPowerupEffect = 0.f;    
+}
+
+int Ball::getConsecutiveBrickHits()
+{
+    return _consecutiveBrickHits;
 }
