@@ -78,7 +78,16 @@ Additionally you can now press "I" to win instantly, for debugging purposes.
 ### Fix bug with paddle size and interpolation - 11 minutes  
 Fixed a bug where the paddle tween would ignore the size set by the powerup.
 
+### Added ImGui Debug Menu - 1 hour  
+This was done for Patch 5B.  
+Pressing Q will now open a debug menu which you can use to do things like spawn powerups and such. 
+Pressing I to instantly win has been removed this is now in the debug menu.
+
 # References
+Cornut O. (2023) *Dear ImGui v1.89.7 docking* Available at: https://github.com/ocornut/imgui/releases/tag/v1.89.7-docking (Downloaded: 23 October 2025)
+
+Daler E. (2025) *imgui-sfml v2.6.1* Available at: https://github.com/SFML/imgui-sfml/releases (Downloaded: 23 October 2025)
+
 DrPetter, Fredricksen E. and McCormick C. (2011) *jsfxr.* Available at: https://sfxr.me/ (Accessed on: 19 October 2025)
 
 MacLeod K. (2012) *Who Likes to Party* Available at: https://incompetech.com/music/royalty-free/mp3-royaltyfree/Who%20Likes%20to%20Party.mp3 (Downloaded: 19 October 2025)
