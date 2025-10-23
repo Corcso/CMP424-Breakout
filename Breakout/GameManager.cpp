@@ -2,10 +2,11 @@
 #include "Ball.h"
 #include "PowerupManager.h"
 #include <iostream>
+#include "imgui.h"
 
 GameManager::GameManager(sf::RenderWindow* window)
     : _window(window), _paddle(nullptr), _ball(nullptr), _brickManager(nullptr), _powerupManager(nullptr),
-    _messagingSystem(nullptr), _ui(nullptr), _pause(false), _time(0.f), _lives(3), _pauseHold(0.f), _levelComplete(false),
+    _messagingSystem(nullptr), _ui(nullptr), _pause(false), _debugOpen(false), _time(0.f), _lives(3), _pauseHold(0.f), _levelComplete(false),
     _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _timeLastPowerupRollDone(0.f), _twixifyRanThisRound(false), _tweenManager(nullptr)
 {
     _font.loadFromFile("font/montS.ttf");
@@ -75,10 +76,9 @@ void GameManager::update(float dt)
         return;
     }
 
-    // If I is pressed, instantly win for testing
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
     {
-        _brickManager->removeBricksRandom(_brickManager->getBricksLeft());
+        _debugOpen = !_debugOpen;
     }
 
     // timer.
@@ -138,9 +138,12 @@ void GameManager::render()
     _window->draw(_masterText);
     _ui->render();
 
-    _brickManager->renderDebugWindow();
-    _powerupManager->renderDebugWindow();
-    _tweenManager->renderDebugWindow();
+    if (_debugOpen) {
+        renderDebugWindow();
+        _brickManager->renderDebugWindow();
+        _powerupManager->renderDebugWindow();
+        _tweenManager->renderDebugWindow();
+    }
 }
 
 void GameManager::levelComplete()
@@ -156,3 +159,15 @@ UI* GameManager::getUI() const { return _ui; }
 Paddle* GameManager::getPaddle() const { return _paddle; }
 BrickManager* GameManager::getBrickManager() const { return _brickManager; }
 PowerupManager* GameManager::getPowerupManager() const { return _powerupManager; }
+
+void GameManager::renderDebugWindow()
+{
+    ImGui::Begin("Game");
+    _ball->renderDebugInformation();
+    _paddle->renderDebugInformation();
+    if (ImGui::Button("Instant Win")) {
+        _brickManager->removeBricksRandom(_brickManager->getBricksLeft());
+    }
+
+    ImGui::End();
+}

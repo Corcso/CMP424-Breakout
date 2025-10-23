@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include "imgui.h"
 #include "GameManager.h" // avoid cicular dependencies
 
 Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
@@ -193,4 +194,9 @@ void Ball::setFireBall(float duration)
 int Ball::getConsecutiveBrickHits()
 {
     return _consecutiveBrickHits;
+}
+
+void Ball::renderDebugInformation()
+{
+    ImGui::Text("Ball speed: %f", _velocity);
 }

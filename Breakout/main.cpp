@@ -32,8 +32,6 @@ int main()
         ImGui::SFML::Update(window, sf::seconds(deltaTime));
         gameManager.update(deltaTime);
 
-        ImGui::ShowDemoWindow();
-
         window.clear();
         gameManager.render();
         ImGui::SFML::Render(window);

@@ -21,6 +21,8 @@ public:
     /// </summary>
     /// <returns>Number of consecutive brick hits</returns>
     int getConsecutiveBrickHits();
+
+    void renderDebugInformation();
 private:
     sf::CircleShape _sprite;
     sf::Vector2f _direction;

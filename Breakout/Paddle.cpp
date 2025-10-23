@@ -1,4 +1,5 @@
 #include "Paddle.h"
+#include "imgui.h"
 #include <iostream>
 
 Paddle::Paddle(sf::RenderWindow* window)
@@ -70,4 +71,10 @@ void Paddle::setWidth(float coeff, float duration)
 float Paddle::getWidthCoeff()
 {
     return _width / PADDLE_WIDTH;
+}
+
+void Paddle::renderDebugInformation()
+{
+    ImGui::Text("Paddle Width: %f", getWidthCoeff());
+    ImGui::Text("Paddle Position: %f, %f", _sprite.getPosition().x, _sprite.getPosition().y);
 }

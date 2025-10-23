@@ -28,9 +28,11 @@ public:
     TweenManager* getTweenManager() const;
     UI* getUI() const;
 
+    void renderDebugWindow();
 
 private:
     bool _pause;
+    bool _debugOpen;
     float _pauseHold;
     float _time;
     float _timeLastPowerupSpawned;
