@@ -38,6 +38,8 @@ public:
 	/// <param name="applicationFunction">Function used to apply the value</param>
 	/// <param name="callbackFunction">Callback function called on tween end</param>
 	void addTweenWithCallback(float start, float end, float speed, EasingFunction easeFunc, std::function<void(float)> applicationFunction, std::function<void()> callbackFunction);
+
+	void renderDebugWindow();
 private:
 	struct Tween {
 		Tween(float start, float end, float speed, EasingFunction easeFunc, std::function<void(float)> applicationFunction, std::function<void()> callbackFunction)

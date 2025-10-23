@@ -137,6 +137,8 @@ void GameManager::render()
     _powerupManager->render();
     _window->draw(_masterText);
     _ui->render();
+
+    _tweenManager->renderDebugWindow();
 }
 
 void GameManager::levelComplete()

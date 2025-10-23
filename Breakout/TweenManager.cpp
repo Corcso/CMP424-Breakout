@@ -1,4 +1,5 @@
 #include "TweenManager.h"
+#include "imgui.h"
 
 TweenManager::TweenManager()
 {
@@ -78,4 +79,31 @@ void TweenManager::addTween(float start, float end, float speed, EasingFunction 
 void TweenManager::addTweenWithCallback(float start, float end, float speed, EasingFunction easeFunc, std::function<void(float)> applicationFunction, std::function<void()> callbackFunction)
 {
 	activeTweens.emplace_back(start, end, speed, easeFunc, applicationFunction, callbackFunction);
+}
+
+void TweenManager::renderDebugWindow()
+{
+	ImGui::Begin("Tween Manager");
+	ImGui::Text("Tweens Active: %i", activeTweens.size());
+	for (auto& tween : activeTweens) {
+		ImGui::SeparatorText("");
+		ImGui::Text("From %f -> %f", tween.start, tween.end);
+		ImGui::ProgressBar(tween.t);
+		switch (tween.easeFunc)
+		{
+		case EasingFunction::LINEAR_IN_OUT:
+			ImGui::Text("Easing: Linear In Out");
+			break;
+		case EasingFunction::ELASTIC_OUT:
+			ImGui::Text("Easing: Elastic Out");
+			break;
+		case EasingFunction::BOUNCE_OUT:
+			ImGui::Text("Easing: Bounce Out");
+			break;
+		case EasingFunction::SINE_IN_OUT:
+			ImGui::Text("Easing: Sine In Out");
+			break;
+		}
+	}
+	ImGui::End();
 }
