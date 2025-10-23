@@ -1,5 +1,6 @@
 #include "PowerupManager.h"
 #include "GameManager.h"
+#include "imgui.h"
 
 
 PowerupManager::PowerupManager(sf::RenderWindow* window, Paddle* paddle, Ball* ball, GameManager* gameManager)
@@ -103,4 +104,33 @@ std::pair<POWERUPS, float> PowerupManager::getPowerupInEffect()
 {
     if (!_powerupInEffect) return { none, 0.f };
     return *_powerupInEffect;
+}
+
+void PowerupManager::renderDebugWindow()
+{
+    ImGui::Begin("Powerup Manager");
+
+    if (ImGui::Button("Spawn Random Powerup")) {
+        spawnPowerup();
+    }
+    if (ImGui::Button("Spawn Big Paddle Powerup")) {
+        _powerups.push_back(new PowerupBigPaddle(_window, _paddle, _ball));
+    }
+    if (ImGui::Button("Spawn Slow Ball Powerup")) {
+        _powerups.push_back(new PowerupSlowBall(_window, _paddle, _ball));
+    }
+    if (ImGui::Button("Spawn Fast Ball Powerup")) {
+        _powerups.push_back(new PowerupFastBall(_window, _paddle, _ball));
+    }
+    if (ImGui::Button("Spawn Small Paddle Powerup")) {
+        _powerups.push_back(new PowerupSmallPaddle(_window, _paddle, _ball));
+    }
+    if (ImGui::Button("Spawn Fireball Powerup")) {
+        _powerups.push_back(new PowerupFireBall(_window, _paddle, _ball));
+    }
+    if (ImGui::Button("Spawn Thanos Snap Powerup")) {
+        _powerups.push_back(new PowerupThanosSnap(_window, _paddle, _ball, _gameManager->getBrickManager()));
+    }
+
+    ImGui::End();
 }

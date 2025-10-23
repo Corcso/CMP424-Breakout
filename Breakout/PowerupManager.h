@@ -28,6 +28,8 @@ public:
     int getPowerupsSpawned();
     std::pair<POWERUPS, float> getPowerupInEffect();
 
+    void renderDebugWindow();
+
 private:
     sf::RenderWindow* _window;
     GameManager* _gameManager;
