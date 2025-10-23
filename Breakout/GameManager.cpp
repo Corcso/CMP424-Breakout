@@ -138,6 +138,7 @@ void GameManager::render()
     _window->draw(_masterText);
     _ui->render();
 
+    _brickManager->renderDebugWindow();
     _powerupManager->renderDebugWindow();
     _tweenManager->renderDebugWindow();
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Brick.h"
+
 #include <SFML/Graphics.hpp>
 
 class GameManager;
@@ -33,6 +34,8 @@ public:
     /// Special Function to create party bricks for the win screen
     /// </summary>
     void createPartyBricks(int rows, int cols, float brickWidth, float brickHeight, float spacing);
+
+    void renderDebugWindow();
 private:
     std::vector<Brick> _bricks;
     sf::RenderWindow* _window;

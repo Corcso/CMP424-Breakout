@@ -1,5 +1,6 @@
 #include "BrickManager.h"
 #include "GameManager.h"
+#include "imgui.h"
 
 BrickManager::BrickManager(sf::RenderWindow* window, GameManager* gameManager)
     : _window(window), _gameManager(gameManager)
@@ -116,4 +117,14 @@ void BrickManager::createPartyBricks(int rows, int cols, float brickWidth, float
             });
     }
     
+}
+
+void BrickManager::renderDebugWindow()
+{
+    ImGui::Begin("Brick Manager");
+    ImGui::Text("Bricks Remaining: %i", _bricks.size());
+    if (ImGui::Button("Remove 1 Brick at random")) {
+        removeBricksRandom(1);
+    }
+    ImGui::End();
 }
